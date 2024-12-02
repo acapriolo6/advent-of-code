@@ -6,28 +6,37 @@ import kotlin.math.abs
 
 fun main() {
     val rawInput = readLines("${Es01::class.java.packageName.replace(".", "/")}/input_01.txt", true)
-    val leftList = mutableListOf<Int>()
-    val rightList = mutableListOf<Int>()
-    createInputLists(rawInput, leftList, rightList)
-    val result = Es01().calculateResult(leftList, rightList)
+    val lines = createInputLists(rawInput)
+    val result = Es01().calculateResult(lines)
     println(result)
 }
 class Es01 {
-    fun calculateResult(leftList: List<Int>, rightList: List<Int>): Int {
-        val sortedLeftList = leftList.sorted()
-        val sortedRightList = rightList.sorted()
-        var result = 0
-        for (i in sortedRightList.indices) {
-            result += abs(sortedLeftList[i] - sortedRightList[i])
+    fun calculateResult(lines: List<List<Int>>): Int {
+        var count = 0
+        for (line in lines) {
+            count += if (isSafe(line)) 1 else 0
         }
-        return result
+        return count
     }
 }
 
-fun createInputLists(rawInput: List<String>, leftList: MutableList<Int>, rightList: MutableList<Int>) {
-    rawInput.forEach {
-        val split = it.split(" ")
-        leftList.add(split.first().toInt())
-        rightList.add(split.last().toInt())
+fun createInputLists(rawInput: List<String>) : List<List<Int>> {
+    return rawInput.map {
+        it.split(" ").map { el -> el.toInt() }
     }
+}
+
+fun isSafe(array: List<Int>): Boolean {
+
+    val isAscending = array[0] < array[1]
+
+    for (index in 1..array.lastIndex) {
+        val distance = array[index - 1] - array[index]
+        val absDistance = abs(distance)
+
+        if (absDistance !in 1..3 || (isAscending && distance > 0) || (!isAscending && distance < 0)) {
+            return false
+        }
+    }
+    return true
 }
