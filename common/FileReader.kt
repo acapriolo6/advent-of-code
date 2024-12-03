@@ -5,7 +5,7 @@ fun readLines(filePath: String, debugEnabled: Boolean = false): List<String> {
     val lines = File(filePath).readLines()
     if (debugEnabled) {
         for (line in lines) {
-            println(line)
+            println("DEBUG: $line")
         }
     }
     return lines
