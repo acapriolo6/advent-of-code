@@ -1,13 +1,11 @@
 package common
 
 
-fun replaceCharAt(s: String, index: Int, newChar: Char): String {
-    if (index !in s.indices) {
-        throw IndexOutOfBoundsException("Index $index is out of bounds for string $s")
+fun String.replaceCharAt(index: Int, newChar: Char) : String {
+    if (index !in this.indices) {
+        throw IndexOutOfBoundsException("Index $index is out of bounds for string $this")
     }
-    val stringBuilder = StringBuilder(s)
+    val stringBuilder = StringBuilder(this)
     stringBuilder[index] = newChar
     return stringBuilder.toString()
 }
-
-fun String.replaceCharAt(index: Int, newChar: Char) = replaceCharAt(this, index, newChar)

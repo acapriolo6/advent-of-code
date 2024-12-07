@@ -61,3 +61,4 @@ kotlin-ide/
 .teamcity/
 .idea
 *.iml
+input_02.txt
